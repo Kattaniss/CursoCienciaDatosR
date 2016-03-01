@@ -15,6 +15,7 @@ localH2O <- h2o.init() # It should indicate that H2O is initialized, as well as 
 
 # Download https://github.com/fcharte/CursoCienciaDatosR/blob/master/data/datosTrabajo.RData and save it in working directory
 
+load('datosTrabajo.RData')
 # Look for the previous file at the "Files" panel, and click it to load it. All the data should appear in the Environment tab
 
 library(caret)
