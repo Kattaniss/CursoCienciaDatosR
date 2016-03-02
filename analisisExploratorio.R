@@ -69,3 +69,28 @@ rank(valores, ties.method='first')
 sortedIris <- iris[order(iris$Petal.Length),]
 head(sortedIris)
 
+#-----------------------------------------------------------------
+# Gráfica de dispersión
+#-----------------------------------------------------------------
+plot(iris$Petal.Length, iris$Petal.Width, col=iris$Species,  pch = 19,
+     xlab = 'Longitud del pétalo', ylab = 'Ancho del pétalo')
+title(main = 'IRIS', 
+      sub = 'Exploración de los pétalos según especie', 
+      col.main = 'blue', col.sub = 'blue')
+legend("bottomright", legend = levels(iris$Species),
+       col = unique(iris$Species), ncol = 3, pch = 19, bty = "n")
+
+# -----------------------------------------------------------------
+# Gráfica de cajas
+# -----------------------------------------------------------------
+plot(iris$Petal.Length ~ iris$Species)
+
+boxplot(iris$Petal.Length ~ iris$Species)
+title(main = 'IRIS', ylab = 'Longitud pétalo', sub = 'Análisis de pétalo por familia')
+
+# -----------------------------------------------------------------
+# Histogramas
+# -----------------------------------------------------------------
+hist(iris)
+
+hist(iris$Sepal.Width, breaks = 12, col = rainbow(12), main = 'Ancho de sépalo', xlab = "Centímetros")
