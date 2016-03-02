@@ -32,3 +32,8 @@ partitionDistribution(particion)
 folds <-createFolds(iris$Species, k = 10)
 particion <- lapply(folds, function(indices) list(training=iris[-indices,], test=iris[indices,]))
 partitionDistribution(particion$Fold04)
+
+
+# Control de parámetros de particionamiento durante el entrenamiento
+train10CV <- trainControl(method = "cv", number = 10)
+train2x5  <- trainControl(method = "repeatedcv", number = 5, repeats = 2)
