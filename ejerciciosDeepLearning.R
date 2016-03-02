@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------
-# Clasificacion - Deep Learning
+# Clasificacion - Deep Learning - Autoencoder
 # -----------------------------------------------------------------
 
 library(autoencoder)
@@ -33,3 +33,51 @@ svmRBF <- train(Species ~ ., data = training,
 
 pred <- predict(svmRBF, test)        # Análisis de resutados sobre datos de test
 confusionMatrix(pred, test$Species)  # Comparar con los resultados de la SVM original
+
+# -----------------------------------------------------------------
+# Clasificacion - Deep Learning - DBN
+# -----------------------------------------------------------------
+
+library(h2o)
+
+# Usamos solo la partición de test
+data = read.csv('data/mnist_test.csv')
+set.seed(4242)
+data <- data[sample(1:nrow(data), 1000), ]
+data[ , 1] <- as.factor(data[ , 1])
+table(data[ , 1]) # Número de muestras por clase
+
+# Examinamos el contenido de algunas muestras
+prev.conf <- par(mfrow = c(5, 5), mai = c(0,0,0,0))
+digits <- lapply(1:25, function(row) {
+  digit <- matrix(as.numeric(data[row, 2:785]), ncol = 28, byrow = FALSE)
+  image(digit[ , 28:1], col = gray(255:0 / 255), axes = FALSE)
+})
+par(prev.conf)
+
+# Particionamos los datos
+indices <- createDataPartition(data[ , 1], p = .75, list = FALSE)
+training = data[indices, ]
+test = data[-indices, ] 
+
+# Inicialización de H2O y entrenamiento del modelo
+h2oInterface <- h2o.init()
+
+# Enviar los datos de los data.frames a la instancia de H2O
+h2oTrain <- as.h2o(training)
+h2otest  <- as.h2o(test)
+
+# Entrenamos el modelo
+modelo <- h2o.deeplearning(2:785, 1, h2oTrain, hidden = c(600,300), epochs = 100)
+plot(modelo)  # Evolución del error a medida que ha progresado el entrenamiento
+
+pred <- h2o.predict(modelo, h2otest)  # Predicciones para datos de test
+
+# Evaluación del rendimiento del modelo
+h2o.performance(modelo, train = TRUE)
+h2o.performance(modelo, h2otest)
+
+h2o.shutdown()
+
+
+
