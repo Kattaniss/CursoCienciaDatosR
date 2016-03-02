@@ -12,6 +12,9 @@ indices <- createDataPartition(iris$Species, p = .75, list = FALSE)
 training = iris[indices, ]
 test = iris[-indices, ] 
 
+# Exploramos la distribución de las muestras según las distintas variables
+featurePlot(training[,-5], y = training$Species, plot='pairs')
+
 # Configuramos la selección del modelo durante entrenamiento
 train10CV <- trainControl(method = "cv", number = 10, classProbs = TRUE)
 
