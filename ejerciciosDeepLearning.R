@@ -7,8 +7,8 @@ library(autoencoder)
 # Datos de iris quitando la clase para generar un autoencoder que comprima la representación
 data <- as.matrix(iris[ , -5])
 encoder <- autoencode(data, N.hidden = 2,  # La capa interna tendrá 2 neuronas (bidimensional)
-                      unit.type="tanh", lambda = 0.0002, beta = 5, rho = 0.9, epsilon = 0.001, 
-                      max.iteration = 500, rescale.flag = TRUE, optim.method="BFGS")
+                      unit.type="tanh", lambda = 0.002, beta = 5, rho = 0.5, epsilon = 0.001, 
+                      max.iteration = 1000, rescale.flag = TRUE, optim.method="BFGS")
 
 # Obtenemos la versión comprimida del dataset
 compressed <- data.frame(predict(encoder, data, hidden.output = TRUE, FALSE)$X.output)
