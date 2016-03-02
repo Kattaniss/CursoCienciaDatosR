@@ -3,9 +3,10 @@
 # -----------------------------------------------------------------
 
 partitionDistribution <- function(partition) {
-  print(lapply(partition, nrow))
-  summary(partition$training$Species) / nrow(particion$training) * 100 # Porcentaje de muestras por clase
-  summary(partition$test$Species)  / nrow(particion$test) * 100
+  print(paste('Training: ', nrow(partition$training), 'instances'))
+  print(summary(partition$training$Species) / nrow(partition$training) * 100) # Porcentaje de muestras por clase
+  print(paste('Test: ', nrow(partition$test), 'instances'))
+  print(summary(partition$test$Species)  / nrow(partition$test) * 100)
 }
 
 # Primeras n filas para training restantes para test
