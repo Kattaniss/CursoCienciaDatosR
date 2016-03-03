@@ -44,7 +44,9 @@ ldaModel <- train(Species ~ ., data = training, method = "lda", trControl = trai
 svmLinear <- train(Species ~ ., data = training, method = "svmLinear", trControl = train10CV, preProc = c("center", "scale"))
 rfModel <- train(Species ~ ., data = training, method = "rf", trControl = train10CV, preProc = c("center", "scale"))
 
-summary(resamples(list(svmRBF = svmRBF, svmLinear = svmLinear, kNN = knnModel, LDA = ldaModel, RF = rfModel)))
+results <- resamples(list(svmRBF = svmRBF, svmLinear = svmLinear, kNN = knnModel, LDA = ldaModel, RF = rfModel))
+summary(results)
+dotplot(results)
 
 # Visualización de la SVM utilizando el paquete e1071
 svm <- svm(Species ~ ., data = training)
