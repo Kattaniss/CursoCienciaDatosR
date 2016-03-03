@@ -13,7 +13,8 @@ training = iris[indices, ]
 test = iris[-indices, ] 
 
 # Exploramos la distribución de las muestras según las distintas variables
-featurePlot(training[,-5], y = training$Species, plot='pairs')
+featurePlot(training[,-5], y = training$Species,  plot='ellipse')
+featurePlot(training[,-5], y = training$Species,  plot='box')
 
 # Configuramos la selección del modelo durante entrenamiento
 train10CV <- trainControl(method = "cv", number = 10, classProbs = TRUE)
@@ -36,6 +37,14 @@ multiClassSummary(pred, lev = levels(pred$obs))
 
 # Visualizar los fallos en la predicción
 ggplot(pred, aes(x = pred, y = obs)) + geom_jitter(position = position_jitter(width = 0.25, height = 0.25))
+
+# Comparación de la SVM con otros modelos
+knnModel <- train(Species ~ ., data = training, method = "knn", trControl = train10CV, preProc = c("center", "scale"))
+ldaModel <- train(Species ~ ., data = training, method = "lda", trControl = train10CV, preProc = c("center", "scale"))
+svmLinear <- train(Species ~ ., data = training, method = "svmLinear", trControl = train10CV, preProc = c("center", "scale"))
+rfModel <- train(Species ~ ., data = training, method = "rf", trControl = train10CV, preProc = c("center", "scale"))
+
+summary(resamples(list(svmRBF = svmRBF, svmLinear = svmLinear, kNN = knnModel, LDA = ldaModel, RF = rfModel)))
 
 # Visualización de la SVM utilizando el paquete e1071
 svm <- svm(Species ~ ., data = training)
