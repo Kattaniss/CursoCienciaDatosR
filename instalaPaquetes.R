@@ -6,6 +6,7 @@ install.packages("neuralnet")
 install.packages("autoencoder")
 install.packages("ggplot2")
 install.packages("h2o", dependencies = c("Depends", "Suggests"))
+install.packages("pROC")
 
 library(rattle)  # WINDOWS: Choose to install Gtk
 rattle()
