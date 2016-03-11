@@ -5,6 +5,7 @@
 library(autoencoder)
 
 # Datos de iris quitando la clase para generar un autoencoder que comprima la representación
+set.seed(100)
 data <- as.matrix(iris[ , -5])
 encoder <- autoencode(data, N.hidden = 2,  # La capa interna tendrá 2 neuronas (bidimensional)
                       unit.type="tanh", lambda = 0.002, beta = 5, rho = 0.5, epsilon = 0.001, 
@@ -18,7 +19,6 @@ compressed$Species = iris$Species
 qplot(X1, X2, data = compressed, color = Species)
 
 # Entrenamiento de una SVM usando la versión comprimida
-set.seed(4242)
 indices <- createDataPartition(compressed$Species, p = .75, list = FALSE)
 training = compressed[indices, ]
 test = compressed[-indices, ] 
