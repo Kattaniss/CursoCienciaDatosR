@@ -14,7 +14,7 @@ iris$Sepal.Length[which(iris$Species == 'versicolor')]
 # -----------------------------------------------------------------
 # Estadística descriptiva
 # -----------------------------------------------------------------
-valores <- valores[!is.na(valores)]
+valores <- as.integer(runif(50, 1, 10))
 unlist(list(
   media = mean(valores), 
   desviacion = sd(valores), 

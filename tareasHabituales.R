@@ -12,7 +12,7 @@ demo('image')
 getwd()
 rutaPrevia <- getwd()
 
-setwd('../CursoCienciaDatosR/data')
+setwd('./CursoCienciaDatosR/data')
 getwd()
 
 # Trabajar con los datos y después restablecer la ruta previa

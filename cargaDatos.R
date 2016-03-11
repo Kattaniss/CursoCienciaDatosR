@@ -1,5 +1,5 @@
 # Asegurarse de establecer la carpeta correcta
-setwd('/home/usuario/CursoCienciaDatosR')
+setwd('/home/ubuntu/CursoCienciaDatosR')
 
 # -----------------------------------------------------------------
 # Importar datos de archivos CSV
@@ -54,9 +54,9 @@ str(covertype)
 head(covertype)
 
 # -----------------------------------------------------------------
-# Copiar información a y desde el portapapeles
+# Copiar información a y desde el portapapeles - Windows
 # -----------------------------------------------------------------
-write.table(results[1:100,], 'clipboard', sep='\t')
+write.table(results[1:100,], 'clipboard', sep='\t') 
 partial.results <- read.delim('clipboard')
 
 # -----------------------------------------------------------------
