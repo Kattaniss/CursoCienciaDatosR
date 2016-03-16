@@ -14,7 +14,13 @@ itemFrequencyPlot(titanic)  # Soporte de los items que aparecen en las transacci
 
 reglas <- apriori(titanic)  # Obtener reglas con parámetros por defecto
 inspect(reglas)
-plot(reglas)
+
+# Métricas de calidad de las reglas obtenidas
+quality(reglas)
+quality(reglas)$conviction <- interestMeasure(reglas, "conviction", titanic)  # Obtener métrica adicional de calidad
+quality(reglas)
+
+plot(reglas) # Exploración de las reglas
 str(reglas)
 
 # Filtrar las reglas que cumplen una condición
@@ -65,3 +71,5 @@ reglas <- apriori(Adult, parameter = list(supp = 0.012, confidence = 0.55), appe
 inspect(reglas)
 plot(reglas, method = "graph", control = list(type = "items"))
 plot(reglas, method = "paracoord", control=list(reorder=TRUE))
+
+# Recursos adicionales sobre reglas de asociación - http://www.r-bloggers.com/examples-and-resources-on-association-rule-mining-with-r/
