@@ -60,6 +60,7 @@ plot(modelo, what = "classification")
 modelo <- MclustDA(iris[, -5], iris$Species, modelType = "EDDA")
 summary(modelo)
 plot(modelo, what = "scatterplot")
+plot(MclustDR(modelo), what="boundaries")
 
 # Comprobación del error cometido
 unlist(cvMclustDA(modelo, nfold = 10)[2:3])
