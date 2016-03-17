@@ -29,6 +29,23 @@ clusters <- kmeans(datos, pamk(datos)$nc)
 ggplot(iris, aes(Petal.Length, Petal.Width)) + geom_point(aes(color = as.factor(clusters$cluster), shape = iris$Species), size = 5)
 clusplot(iris[, -5], clusters$cluster, color = TRUE, lines = 0)   
 
+# ---- Agrupamiento por densidad de muestras - paquete fpc  ------
+
+clusters <- dbscan(datos, eps = .5)
+clusters
+clusplot(datos, clusters$cluster, color = TRUE, lines = 0)   
+
+library(mlbench)            # Paquete con muestras de datos distribuidas de diferentes formas
+datos <- mlbench.smiley()$x
+plot(datos)
+
+# Comparación entre el resultado generado por kmeans y el algoritmo dbscan de agrupamiento por densidad
+clusters.kmeans <- kmeans(datos, 4)
+clusters.dbscan <- dbscan(datos, eps = .5)
+
+ggplot(as.data.frame(datos), aes(x4, V2)) + geom_point(aes(color = as.factor(clusters.kmeans$cluster)), size = 5)
+ggplot(as.data.frame(datos), aes(x4, V2)) + geom_point(aes(color = as.factor(clusters.dbscan$cluster)), size = 5)
+
 # ---- Agrupamiento jerárquico  ------
 
 # Parte de las muestras de iris
