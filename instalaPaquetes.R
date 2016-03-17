@@ -7,6 +7,8 @@ install.packages("autoencoder")
 install.packages("ggplot2")
 install.packages("h2o", dependencies = c("Depends", "Suggests"))
 install.packages("pROC")
+install.packages("arules")
+install.packages("arulesViz")
 
 library(rattle)  # WINDOWS: Choose to install Gtk
 rattle()
