@@ -24,7 +24,7 @@ plot(reglas) # Exploración de las reglas
 str(reglas)
 
 # Filtrar las reglas que cumplen una condición
-mejores <- reglas[quality(reglas)$lift > 3]
+mejores <- reglas[quality(reglas)$lift > 1]
 inspect(mejores)
 
 # Obtener reglas con un cierto valor en el consecuente y un soporte menor
