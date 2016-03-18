@@ -61,7 +61,7 @@ training = data[indices, ]
 test = data[-indices, ] 
 
 # Inicialización de H2O y entrenamiento del modelo
-h2oInterface <- h2o.init()
+h2oInterface <- h2o.init(nthreads = -1)
 
 # Enviar los datos de los data.frames a la instancia de H2O
 h2oTrain <- as.h2o(training)
@@ -76,6 +76,20 @@ pred <- h2o.predict(modelo, h2otest)  # Predicciones para datos de test
 # Evaluación del rendimiento del modelo
 h2o.performance(modelo, train = TRUE)
 h2o.performance(modelo, h2otest)
+
+# Prueba de reconstrucción
+h2odata <- as.h2o(data[ , 2:785])
+rec <- h2o.deeplearning(x = 1:784, ignore_const_cols = FALSE, activation = "Tanh", training_frame = h2odata, hidden = c(100, 50, 100), epochs = 5, autoencoder = TRUE)
+recdigits <- as.data.frame(h2o.predict(rec, h2odata))
+prev.conf <- par(mfrow = c(5, 10), mai = c(0,0,0,0))
+digits <- lapply(1:25, function(row) {
+  digitOrig <- matrix(as.numeric(data[row, 2:785]), ncol = 28, byrow = FALSE)
+  digitRec <- matrix(as.numeric(recdigits[row, ]), ncol = 28, byrow = FALSE)
+  image(digitOrig[ , 28:1], col = gray(255:0 / 255), axes = FALSE)
+  image(digitRec[ , 28:1], col = gray(255:0 / 255), axes = FALSE)
+})
+par(prev.conf)
+
 
 h2o.shutdown()
 
