@@ -39,6 +39,7 @@ confusionMatrix(predict(rf, test), test$type)
 # Comparar los modelos entre sí
 diff <- resamples(list(Boosting = gbm, Bagging = bag, RF = rf))
 summary(diff)
+dotplot(diff)
 
 # Visualización de árboles individuales
 library(party)
