@@ -5,8 +5,18 @@
 library(arules)
 library(arulesViz)
 
+# Podemos leer archivos de transacciones en formato "single" y "basket" (por defecto)
+tr1 <- read.transactions("data/Compras2.csv")
+tr2 <- read.transactions("data/Compras1.csv", format = "single", cols = 1:2)
+str(tr1)
+itemFrequency(tr1)
+itemFrequency(tr2)
+itemFrequencyPlot(tr1)
+
+# También podemos generar las transacciones desde un data.frame
 load("data/titanic.rdata")
 titanic
+str(titanic)  # Es un data.frame en el que todas las columnas son nominales (factors)
 titanic <- as(titanic, "transactions")  # Convertir los datos a formato de transacción
 titanic
 
