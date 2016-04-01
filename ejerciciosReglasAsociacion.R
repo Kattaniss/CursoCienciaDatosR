@@ -45,6 +45,7 @@ plot(reglas)
 # Relaciones entre los items que generan las reglas
 plot(reglas, method="graph", control=list(type="items"))
 plot(reglas, method = "paracoord", control=list(reorder=TRUE))
+plot(reglas[2], method = "doubledecker", data = titanic)
 
 data("AdultUCI")
 Adult <- as(AdultUCI, "transactions")  # La conversión falla, hay columnas no discretas
